@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "realestate-voice-agent"
+version = "1.0.0"
+description = "Canadian real-estate voice agent on AWS Bedrock AgentCore with dynamic .txt skill routing"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "fastapi>=0.115,<1.0",
+    "uvicorn[standard]>=0.30,<1.0",
+    "boto3>=1.34,<2.0",
+    "httpx>=0.27,<1.0",
+    "python-dotenv>=1.0,<2.0",
+    "websockets>=12,<15",
+]
+
+[project.optional-dependencies]
+voice = ["amazon-transcribe-streaming>=0.4,<1.0"]
+dev = [
+    "pytest>=8.0,<9.0",
+    "pytest-asyncio>=0.23,<1.0",
+    "ruff>=0.5",
+]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-q"
+markers = [
+    "aws: tests that require live AWS credentials",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

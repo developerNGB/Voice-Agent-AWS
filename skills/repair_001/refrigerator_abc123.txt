@@ -1,0 +1,38 @@
+SKILL_ID: refrigerator_abc123
+TYPE: appliance_repair
+NAME: Refrigerator Repair
+DESCRIPTION:
+On-site refrigerator diagnostic and repair service.
+
+KEYWORDS:
+refrigerator
+fridge
+fridge repair
+refrigerator repair
+not cooling
+
+PURPOSE:
+Answer questions about refrigerator repair service.
+
+RULES:
+Only provide information contained in this file. Never invent prices or availability.
+
+ESCALATION:
+If information is unavailable, say a technician will confirm details when they call back.
+
+CONTENT:
+
+Diagnostic Fee:
+CAD 89 (applied to the repair)
+
+Common Repairs:
+Compressor start relay CAD 160; thermostat CAD 140; door seal CAD 110
+
+Availability:
+Tuesday to Sunday, 9:00 to 19:00
+
+Response Time:
+Same day when called before 14:00
+
+Warranty:
+90 days on parts and labour

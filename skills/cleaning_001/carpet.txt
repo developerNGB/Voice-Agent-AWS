@@ -1,0 +1,37 @@
+SKILL_ID: carpet
+TYPE: cleaning_service
+NAME: Carpet Cleaning
+DESCRIPTION:
+Deep carpet cleaning service for homes and offices.
+
+KEYWORDS:
+carpet
+carpets
+rug
+carpet cleaning
+
+PURPOSE:
+Answer questions about the carpet cleaning service.
+
+RULES:
+Only provide information contained in this file. Never invent prices or availability.
+
+ESCALATION:
+If information is unavailable, say you will have someone follow up with the details.
+
+CONTENT:
+
+Price:
+CAD 0.35 per sq ft, minimum CAD 150
+
+Duration:
+About 2 hours for an average home
+
+Process:
+Pre-spray, hot water extraction, deodorizer
+
+Availability:
+Monday to Saturday, 8:00 to 18:00
+
+Warranty:
+30-day re-clean guarantee

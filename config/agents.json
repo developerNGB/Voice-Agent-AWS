@@ -1,0 +1,31 @@
+{
+  "agents": [
+    {
+      "agent_id": "realestate_001",
+      "business_type": "real_estate",
+      "display_name": "Main Street Realty",
+      "phone_number": "+14165550100",
+      "skill_namespace": "realestate_001",
+      "default_language": "en-CA",
+      "greeting": "Thank you for calling Main Street Realty. How can I help you today?"
+    },
+    {
+      "agent_id": "cleaning_001",
+      "business_type": "cleaning",
+      "display_name": "Fresh Home Cleaning",
+      "phone_number": "+14165550200",
+      "skill_namespace": "cleaning_001",
+      "default_language": "en-CA",
+      "greeting": "Thank you for calling Fresh Home Cleaning. What can I help you with today?"
+    },
+    {
+      "agent_id": "repair_001",
+      "business_type": "appliance_repair",
+      "display_name": "Fix It Appliance Repair",
+      "phone_number": "+14165550300",
+      "skill_namespace": "repair_001",
+      "default_language": "en-CA",
+      "greeting": "Thank you for calling Fix It Appliance Repair. How can I help?"
+    }
+  ]
+}

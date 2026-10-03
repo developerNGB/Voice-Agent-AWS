@@ -1,0 +1,59 @@
+SKILL_ID: property_001
+TYPE: real_estate_property
+NAME: 123 Main Street
+DESCRIPTION:
+Residential property located at 123 Main Street, Toronto ON.
+
+KEYWORDS:
+123 Main Street
+Main Street
+property 123
+house on Main Street
+123 Main
+
+PURPOSE:
+Answer questions about the property at 123 Main Street.
+
+RULES:
+Only provide information contained in this file. Never invent price, status, size or features.
+
+ESCALATION:
+If information is unavailable, say it is not in the current listing details and offer to connect the caller with an agent.
+
+CONTENT:
+
+Price:
+CAD 899,000
+
+Bedrooms:
+4
+
+Bathrooms:
+3
+
+Size:
+2,400 sq ft
+
+Garage:
+Double attached
+
+Status:
+For Sale
+
+Year Built:
+1998
+
+Lot:
+40 x 110 ft
+
+Property Type:
+Detached house
+
+Heating:
+Gas forced air
+
+Parking:
+2 driveway + double garage
+
+Notes:
+Recently renovated kitchen. Finished basement. Walking distance to transit.

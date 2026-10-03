@@ -1,0 +1,59 @@
+SKILL_ID: property_004
+TYPE: real_estate_property
+NAME: 77 Lake Shore Avenue
+DESCRIPTION:
+Waterfront property at 77 Lake Shore Avenue, Mississauga ON.
+
+KEYWORDS:
+77 Lake Shore Avenue
+Lake Shore
+property 77
+house on Lake Shore
+77 Lake Shore
+
+PURPOSE:
+Answer questions about the property at 77 Lake Shore Avenue.
+
+RULES:
+Only provide information contained in this file. Never invent price, status, size or features.
+
+ESCALATION:
+If information is unavailable, say it is not in the current listing details and offer to connect the caller with an agent.
+
+CONTENT:
+
+Price:
+CAD 1,250,000
+
+Bedrooms:
+5
+
+Bathrooms:
+4
+
+Size:
+3,600 sq ft
+
+Garage:
+Triple attached
+
+Status:
+For Sale
+
+Year Built:
+2012
+
+Lot:
+60 x 140 ft
+
+Property Type:
+Detached house
+
+Heating:
+Gas furnace + heat pump
+
+Parking:
+Triple garage + driveway
+
+Notes:
+Lake view from second floor. Two-minute walk to the waterfront trail.

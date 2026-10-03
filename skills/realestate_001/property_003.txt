@@ -1,0 +1,56 @@
+SKILL_ID: property_003
+TYPE: real_estate_property
+NAME: 200 King Street
+DESCRIPTION:
+Downtown condominium at 200 King Street, Toronto ON.
+
+KEYWORDS:
+200 King Street
+King Street
+property 200
+condo at King
+200 King
+
+PURPOSE:
+Answer questions about the condominium at 200 King Street.
+
+RULES:
+Only provide information contained in this file. Never invent price, status, size or features.
+
+ESCALATION:
+If information is unavailable, say it is not in the current listing details and offer to connect the caller with an agent.
+
+CONTENT:
+
+Price:
+CAD 615,000
+
+Bedrooms:
+2
+
+Bathrooms:
+2
+
+Size:
+980 sq ft
+
+Garage:
+None (paid parking available in building)
+
+Status:
+For Sale
+
+Year Built:
+2016
+
+Property Type:
+Condominium apartment, 22nd floor
+
+Maintenance Fees:
+CAD 585 per month
+
+Parking:
+None included
+
+Notes:
+Floor-to-ceiling windows. Building has gym and concierge. Storage locker included.
