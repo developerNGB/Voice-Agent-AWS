@@ -133,6 +133,7 @@ class MockLLMProvider(LLMProvider):
                 )
 
         # 5. Workflow intents
+        intent = (meta.get("profile_intent") or "").lower()
         if VIEWING_RE.search(utterance):
             if has_skill:
                 return "I can help with that. What day works best for you?"
@@ -144,6 +145,16 @@ class MockLLMProvider(LLMProvider):
             if budget:
                 return f"Thanks — I've noted the budget of {budget}. How many bedrooms do you need?"
             return "Understood. What's your budget range, and how many bedrooms do you need?"
+
+        # 5b. Continue an in-progress workflow from this session's intent
+        if intent == "selling":
+            return "What's the address of the property you want to sell?"
+        if intent == "buying":
+            return "Understood. What's your budget range, and how many bedrooms do you need?"
+        if intent == "viewing":
+            if has_skill:
+                return "I can help with that. What day works best for you?"
+            return "Which property would you like to view?"
 
         # 6. Unknown property with no active skill
         if not has_skill:

@@ -1,2 +1,37 @@
-/.agent-cache
-/.freebuff
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Env & secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Test/tool caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# CDK
+infrastructure/cdk/cdk.out/
+infrastructure/cdk/__pycache__/
+
+# Runtime output
+logs/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Deliverables (large binaries — store outside git or via releases)
+*.mp4
+*.docx

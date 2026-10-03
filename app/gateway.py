@@ -11,7 +11,7 @@ import base64
 import time
 
 from app.agent.agent import VoiceAgent
-from app.config import Settings, get_settings
+from app.config import Settings
 from app.models.call import AgentTurn, CallRecord
 from app.voice.base import (
     AudioChunk,
@@ -37,6 +37,7 @@ class GatewayCall:
         self.settings = settings
         self.endpoint = EndpointDetector(EndpointConfig())
         self.bargein = BargeInController()
+        self._pending_transcripts: list = []   # finals collected mid-utterance
         self.on_audio = on_audio or (lambda chunk: None)
         self.stream_config = StreamConfig()
         self.started_at = time.time()
@@ -55,14 +56,18 @@ class GatewayCall:
     async def handle_audio_frame(self, frame: bytes) -> list[dict]:
         """Feed one telephony frame; returns gateway events."""
         events: list[dict] = []
-        await self.stt.feed_audio(frame)
+        # Real STT providers may emit a final transcript *mid-utterance*;
+        # collect it here or it is lost when stop() only returns the tail.
+        self._pending_transcripts.extend(await self.stt.feed_audio(frame))
         event = self.endpoint.feed(frame)
 
         if event == "speech_start":
+            self._pending_transcripts.clear()
             if self.bargein.on_caller_speech():
                 events.append({"type": "cancel_audio", "reason": "barge_in"})
         elif event == "speech_end":
-            transcripts = await self.stt.stop()
+            transcripts = self._pending_transcripts + await self.stt.stop()
+            self._pending_transcripts.clear()
             await self.stt.start(self.stream_config)
             for transcript in transcripts:
                 if not transcript.text.strip():
@@ -111,6 +116,10 @@ class VoiceGateway:
         self.tts = tts or self._build_tts()
 
     def _build_stt(self) -> SpeechToTextProvider:
+        if self.settings.stt_provider == "vosk":
+            from app.voice.vosk import VoskSTTProvider
+
+            return VoskSTTProvider(model_path=self.settings.vosk_model_path)
         if self.settings.stt_provider == "aws":
             from app.voice.aws import TranscribeSTTProvider
 
@@ -118,6 +127,10 @@ class VoiceGateway:
         return MockSTTProvider()
 
     def _build_tts(self) -> TextToSpeechProvider:
+        if self.settings.tts_provider == "edge":
+            from app.voice.edge import EdgeTTSProvider
+
+            return EdgeTTSProvider(voice=self.settings.edge_voice)
         if self.settings.tts_provider == "aws":
             from app.voice.aws import PollyTTSProvider
 

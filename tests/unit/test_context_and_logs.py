@@ -1,7 +1,6 @@
 """Caller profile extraction and structured call logging."""
 
 from app.agent.context import ContextManager
-from app.config import Settings
 from app.agent.agent import VoiceAgent
 from app.models.session import Session
 from app.storage.logs import MemoryLogger

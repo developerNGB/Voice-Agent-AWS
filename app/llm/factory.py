@@ -8,8 +8,20 @@ from app.llm.mock import MockLLMProvider
 
 
 def build_llm(settings: Settings) -> LLMProvider:
-    provider = (settings.model_provider or "bedrock").lower()
+    """Build the configured provider, falling back to the offline mock (with a
+    loud warning) when its credentials are missing — so the gateway still boots."""
+    provider = (settings.model_provider or "gemini").lower()
+    try:
+        return _build(settings, provider)
+    except ValueError as exc:
+        import sys
 
+        print(f"WARNING: {exc} — falling back to MockLLMProvider (offline rules).",
+              file=sys.stderr)
+        return MockLLMProvider()
+
+
+def _build(settings: Settings, provider: str) -> LLMProvider:
     if provider == "mock":
         return MockLLMProvider()
 

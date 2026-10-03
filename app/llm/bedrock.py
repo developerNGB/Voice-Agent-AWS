@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import asyncio
 
 from app.llm.base import (
     LLMProvider,
@@ -70,7 +69,6 @@ class BedrockProvider(LLMProvider):
 
         chunks = response.get("output", {}).get("message", {}).get("content", [])
         text = "".join(c.get("text", "") for c in chunks if "text" in c).strip()
-        usage = response.get("usage", {})
         return LLMResponse(
             text=text,
             provider=self.name,

@@ -19,7 +19,13 @@ except Exception:  # pragma: no cover
 
 def _env(name: str, default: str) -> str:
     value = os.environ.get(name)
-    return default if value is None or value == "" else value
+    if value is None:
+        return default
+    value = value.strip()
+    if not value or value.startswith("#"):
+        # empty or an inline-comment-only value ("KEY=   # explanation")
+        return default
+    return value
 
 
 @dataclass
@@ -44,10 +50,12 @@ class Settings:
     gemini_api_key: str = ""
 
     # Voice
-    stt_provider: str = "mock"           # mock | aws
-    tts_provider: str = "mock"           # mock | aws
+    stt_provider: str = "mock"           # mock | vosk | aws
+    tts_provider: str = "mock"           # mock | edge | aws
     polly_voice_id: str = "Joanna"
     polly_engine: str = "neural"
+    vosk_model_path: str = "models/vosk-model-small-en-us-0.15"
+    edge_voice: str = "en-CA-ClaraNeural"
 
     # Routing
     skill_activate_threshold: float = 0.75
@@ -61,6 +69,9 @@ class Settings:
     twilio_account_sid: str = ""
     twilio_auth_token: str = ""
     twilio_validate_signature: bool = False
+    signalwire_project_id: str = ""
+    signalwire_token: str = ""
+    signalwire_validate: bool = False
     public_base_url: str = ""
 
     # Deployment
@@ -87,6 +98,8 @@ class Settings:
             "tts_provider": _env("TTS_PROVIDER", "mock"),
             "polly_voice_id": _env("POLLY_VOICE_ID", "Joanna"),
             "polly_engine": _env("POLLY_ENGINE", "neural"),
+            "vosk_model_path": _env("VOSK_MODEL_PATH", "models/vosk-model-small-en-us-0.15"),
+            "edge_voice": _env("EDGE_VOICE", "en-CA-ClaraNeural"),
             "skill_activate_threshold": float(_env("SKILL_ACTIVATE_THRESHOLD", "0.75")),
             "skill_clarify_threshold": float(_env("SKILL_CLARIFY_THRESHOLD", "0.45")),
             "llm_timeout_seconds": float(_env("LLM_TIMEOUT_SECONDS", "15")),
@@ -95,6 +108,9 @@ class Settings:
             "twilio_auth_token": _env("TWILIO_AUTH_TOKEN", ""),
             "twilio_validate_signature": _env("TWILIO_VALIDATE_SIGNATURE", "false").lower()
             == "true",
+            "signalwire_project_id": _env("SIGNALWIRE_PROJECT_ID", ""),
+            "signalwire_token": _env("SIGNALWIRE_TOKEN", ""),
+            "signalwire_validate": _env("SIGNALWIRE_VALIDATE", "false").lower() == "true",
             "public_base_url": _env("PUBLIC_BASE_URL", ""),
             "agentcore_runtime_name": _env("AGENTCORE_RUNTIME_NAME", "realestate-voice-agent"),
         }

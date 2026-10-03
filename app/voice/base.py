@@ -7,7 +7,7 @@ WebSocket, a test harness) can be swapped without touching agent logic.
 from __future__ import annotations
 
 import abc
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 
 @dataclass

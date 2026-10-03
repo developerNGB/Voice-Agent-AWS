@@ -113,8 +113,12 @@ class ToolBox:
         return result
 
     def schedule_viewing(self, session: Session, when: str) -> ToolResult:
+        if not session.active_skill_id:
+            result = ToolResult(False, error="no active skill: viewings need a property")
+            self._log_tool(session, "schedule_viewing", {"when": when}, result)
+            return result
         try:
-            self._check(session, session.active_skill_id) if session.active_skill_id else self._check(session)
+            self._check(session, session.active_skill_id)
         except AccessDeniedError as exc:
             result = ToolResult(False, error=str(exc))
             self._log_tool(session, "schedule_viewing", {"when": when}, result)

@@ -148,7 +148,6 @@ async def test_agent_refuses_to_follow_instructions_embedded_in_skill(agent, ses
         encoding="utf-8",
     )
     from app.config import Settings
-    from app.skills.loader import LocalSkillStore
     from app.skills.registry import SkillRegistry
     from app.router.skill_router import SkillRouter
     from app.agent.agent import VoiceAgent

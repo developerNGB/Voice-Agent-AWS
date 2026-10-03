@@ -157,12 +157,14 @@ class VoiceAgent:
         else:
             # 2. Extract caller facts (name, budget, bedrooms, intent…)
             changed = self.context.extract(session, text)
-            self._maybe_create_lead(session, changed)
 
             # 3. Skill routing
             decision = self._route(session, text)
             route_status = decision.status
             clarify = []
+
+            # Lead capture happens after routing so it can reference the skill
+            self._maybe_create_lead(session, changed)
 
             if decision.status == "clarify":
                 session.pending_candidates = [sid for sid, _ in decision.candidates]

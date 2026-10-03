@@ -76,7 +76,14 @@ def score_skill(skill: Skill, query: str) -> float:
             best = max(best, 0.92 if q_digits <= kw_digits else 0.35)
         else:
             ratio = len(overlap) / len(kw_tokens)
-            best = max(best, 0.45 + 0.30 * ratio)
+            raw = 0.45 + 0.30 * ratio
+            if not kw_digits:
+                # a generic keyword ("house on Main Street") never discriminates
+                raw = min(raw, 0.55)
+            elif not q_digits:
+                # caller named the street but no number → ambiguous
+                raw = min(raw, 0.70)
+            best = max(best, raw)
 
     if best < 0.45:
         # weak fallback: description/token overlap only

@@ -1,0 +1,18 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "WriteLogsOnly",
+      "Effect": "Allow",
+      "Action": ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"],
+      "Resource": "arn:aws:logs:YOUR_REGION:YOUR_ACCOUNT_ID:*"
+    },
+    {
+      "Sid": "PublishMetrics",
+      "Effect": "Allow",
+      "Action": ["cloudwatch:PutMetricData"],
+      "Resource": "*",
+      "Condition": {"StringEquals": {"cloudwatch:namespace": ["VoiceAgent"]}}
+    }
+  ]
+}

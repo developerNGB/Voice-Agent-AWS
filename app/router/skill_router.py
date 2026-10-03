@@ -14,7 +14,7 @@ from __future__ import annotations
 from app.config import Settings, get_settings
 from app.models.call import RoutingDecision
 from app.models.session import Session
-from app.router.matcher import candidate_search
+from app.router.matcher import candidate_search, normalize_spoken_numbers
 from app.router.scorer import score_all
 from app.router.validator import validate_activation, margin_ok
 from app.skills.registry import SkillRegistry
@@ -30,8 +30,12 @@ class SkillRouter:
     # -- public API ---------------------------------------------------------
 
     def extract_request(self, text: str) -> str:
-        """Normalise the utterance for routing (kept simple and predictable)."""
-        return (text or "").strip()
+        """Normalise the utterance for routing (kept simple and predictable).
+
+        Spoken numbers become digits ("one twenty three" → "123") so STT
+        output matches header keywords the way typed input does.
+        """
+        return normalize_spoken_numbers((text or "").strip())
 
     def load_metadata(self, agent_id: str) -> dict:
         """The header index — searchable metadata only, never full content."""
